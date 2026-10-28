@@ -315,7 +315,6 @@ function GemsToLocks(gem)
     local calculatedWL = math.floor(totalGemsInBase / 2000)
     local totalWL = tostring(calculatedWL)
     
-    -- (hps) totalWL = data.tgems == " `9Gems" and tostring(math.floor(gem / 2000)) or tostring(gem)
     WL = tonumber(totalWL:sub(-2, -1)) or 0
     DL = tonumber(totalWL:sub(-4, -3)) or 0
     BGL = tonumber(totalWL:sub(-6, -5)) or 0
@@ -408,9 +407,9 @@ function onvariant(var)
         tolay("`4BLOCKED SDB")
         return true
     elseif var[0] == "OnDialogRequest" then
-        if var[1]:find("display_text") and copySign and not running then
+        if var[1] and var[1]:find("display_text") and copySign and not running then
             -- tolay("Scaning Sign...")
-            rawText = var[1]:match("display_text||(.+)|128")
+            local extacted = var[1]:match("display_text||(.+)|128")
             
             if rawText ~= "" then
                 local full = rawText.. " `##" ..customTag.. " " ..wm
