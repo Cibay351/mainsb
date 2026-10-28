@@ -102,11 +102,14 @@ end
 function onvariant(var)
     if var[0] == "OnSDBroadcast" and blokSDB then return true
     elseif var[0] == "OnDialogRequest" then
-        if var[1]:find("display_text") and copySign and not running then
-            rawText = var[1]:match("display_text||(.+)|128") or ""
-            if rawText ~= "" then
-                textSb = rawText .. " `##" .. customTag .. " " .. wm
-                console("`2[COPY SIGN] Text: " .. rawText)
+        if var[1] and var[1]:find("display_text") and copySign and not running then
+            local extracted = var[1]:match("display_text||(.+)|128")
+            if extracted and extracted ~= "" then
+                rawText = extracted
+                textSb = rawText .. "`##" ..customTag.. " " ..wm
+                uiUpdate = true
+                console("`2[COPY SIGN SUCCESS] `w" .. rawText)
+                tolay("`2Copy Sign Success!")
             end
             return true
         end
