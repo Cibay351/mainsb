@@ -408,16 +408,16 @@ function onvariant(var)
         return true
     elseif var[0] == "OnDialogRequest" then
         if var[1] and var[1]:find("display_text") and copySign and not running then
-            -- tolay("Scaning Sign...")
             local extacted = var[1]:match("display_text||(.+)|128")
-            
-            if rawText ~= "" then
-                local full = rawText.. " `##" ..customTag.. " " ..wm
-                if #full <= 116 then
-                    textSb = full
-                    console("`2[SUCCESS COPY SIGN] `9TEXT : ``" ..rawText)
-                else
-                    console("`4[FAILED COPY SIGN] `wText SB / Custom Tag Too Long!")
+            if extacted and extacted ~= "" then
+                if rawText ~= "" then
+                    local full = rawText.. " `##" ..customTag.. " " ..wm
+                    if #full <= 116 then
+                        textSb = full
+                        console("`2[SUCCESS COPY SIGN] `9TEXT : ``" ..rawText)
+                    else
+                        console("`4[FAILED COPY SIGN] `wText SB / Custom Tag Too Long!")
+                    end
                 end
             end
             if var[1]:find("`wCheater") then
