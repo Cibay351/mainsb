@@ -34,6 +34,7 @@ blokSpin = false
 lonelyMode = false
 appliedSettings = false
 rawText = ""
+uiUpdate = false
 Tx = nil
 Ty = nil
 
@@ -408,17 +409,12 @@ function onvariant(var)
         return true
     elseif var[0] == "OnDialogRequest" then
         if var[1] and var[1]:find("display_text") and copySign and not running then
-            local extacted = var[1]:match("display_text||(.+)|128")
-            if extacted and extacted ~= "" then
-                if rawText ~= "" then
-                    local full = rawText.. " `##" ..customTag.. " " ..wm
-                    if #full <= 116 then
-                        textSb = full
-                        console("`2[SUCCESS COPY SIGN] `9TEXT : ``" ..rawText)
-                    else
-                        console("`4[FAILED COPY SIGN] `wText SB / Custom Tag Too Long!")
-                    end
-                end
+            local extracted = var[1]:match("display_text||(.+)|128")
+            if extracted and extracted ~= "" then
+                rawText = extracted
+                textSb = rawText .. "`##" ..customTag.. " " ..wm
+                uiUpdate = true
+                
             end
             if var[1]:find("`wCheater") then
                 data.cheat = true
@@ -495,6 +491,7 @@ function GUI()
                 if tx then
                     rawText = txt 
                     textSb = rawText.. " `##" ..customTag.. " " ..wm
+                    
                 end
                 local tg, tag = ImGui.InputTextWithHint("Custom Tag","Your tag in sb message", customTag)
                 if tg then 
