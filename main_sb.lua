@@ -71,7 +71,7 @@ function backToTile()
     end
 end
 
-function buyCheat()
+function buyCheat() -- belum work
     if not data.cheat then
         SendPacket(2, "action|dialog_return\ndialog_name|buycheat\n")
         data.cheat = true
